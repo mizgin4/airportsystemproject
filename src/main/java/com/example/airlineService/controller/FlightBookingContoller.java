@@ -28,6 +28,6 @@ public class FlightBookingContoller {
 
     @PostMapping("/reservation/{id}")
     public ResponseEntity<BookFlightResponse> bookFlight(@PathVariable Long id ,@RequestBody BookFlightRequest request){
-        return null;
+        return ResponseEntity.ok();
     }
 }
