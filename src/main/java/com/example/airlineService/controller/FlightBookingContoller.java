@@ -26,8 +26,8 @@ public class FlightBookingContoller {
         return ResponseEntity.ok(routeService.searchFlights(request));
     }
 
-    @PostMapping("/reservation")
-    public ResponseEntity<BookFlightResponse> bookFlight(@RequestBody BookFlightRequest request){
+    @PostMapping("/reservation/{id}")
+    public ResponseEntity<BookFlightResponse> bookFlight(@PathVariable Long id ,@RequestBody BookFlightRequest request){
         return null;
     }
 }
