@@ -8,6 +8,7 @@ public class RouteDto {
     private String arrival;
     private LocalDate departureDate;
     private LocalDate arrivalDate;
+    private Double price;
 
     public String getDeparture() {
         return departure;
@@ -47,5 +48,13 @@ public class RouteDto {
 
     public void setAirlineId(Long airlineId) {
         this.airlineId = airlineId;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

@@ -85,4 +85,12 @@ public class RouteEntity {
     public void setAirlineEntity(AirlineEntity airlineEntity) {
         this.airlineEntity = airlineEntity;
     }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 }

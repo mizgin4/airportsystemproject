@@ -9,12 +9,12 @@ import com.example.airlineService.repositroy.AirlineRepository;
 import com.example.airlineService.repositroy.RouteRepository;
 import com.example.airlineService.service.RouteService;
 
-import com.example.airlineService.service.converter.RouteEntityConverter;
+import com.example.airlineService.service.converter.routeconv.RouteEntityConverter;
+import com.example.airlineService.service.converter.routeconv.RouteRequestConverter;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,26 +24,24 @@ public class RouteServiceImpl implements RouteService {
     private final RouteRepository routeRepository;
     private final AirlineRepository airlineRepository;
     private final RouteEntityConverter routeEntityConverter;
+    private final RouteRequestConverter routeRequestConverter;
 
-    public RouteServiceImpl(RouteRepository routeRepository, AirlineRepository airlineRepository, RouteEntityConverter routeEntityConverter) {
+    public RouteServiceImpl(RouteRepository routeRepository, AirlineRepository airlineRepository, RouteEntityConverter routeEntityConverter, RouteRequestConverter routeRequestConverter) {
         this.routeRepository = routeRepository;
         this.airlineRepository = airlineRepository;
         this.routeEntityConverter = routeEntityConverter;
+        this.routeRequestConverter = routeRequestConverter;
     }
 
 
     @Override
     public RouteDto addRoute(AddRouteReqeust request) throws Exception {
-        RouteDto routeDto = new RouteDto();
-        routeDto.setArrival(request.getArrival());
-        routeDto.setDeparture(request.getDeparture());
-        routeDto.setArrivalDate(request.getArrivalDate());
-        routeDto.setDepartureDate(request.getDepartureDate());
-        routeDto.setAirlineId(request.getAirlineId());
+
         Optional<AirlineEntity> optionalAirlineEntity=airlineRepository.findById(request.getAirlineId());
         if(!optionalAirlineEntity.isPresent()){
             throw new Exception("No airline found to be related");
         }
+        RouteDto routeDto = routeRequestConverter.convert(request);
         AirlineEntity airlineEntity=optionalAirlineEntity.get();
         RouteEntity routeEntity=routeEntityConverter.convert(airlineEntity,routeDto);
         routeRepository.save(routeEntity);

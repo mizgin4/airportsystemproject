@@ -1,4 +1,4 @@
-package com.example.airlineService.service.converter;
+package com.example.airlineService.service.converter.routeconv;
 
 import com.example.airlineService.model.dto.RouteDto;
 import com.example.airlineService.model.entity.AirlineEntity;
@@ -15,6 +15,7 @@ public class RouteEntityConverter {
         routeEntity.setDepartureDate(routeDto.getDepartureDate());
         routeEntity.setArrivalDate(routeDto.getArrivalDate());
         routeEntity.setAirlineEntity(airlineEntity);
+        routeEntity.setPrice(routeDto.getPrice());
         return routeEntity;
 
     }
