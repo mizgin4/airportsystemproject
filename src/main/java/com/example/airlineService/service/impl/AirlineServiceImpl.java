@@ -9,6 +9,7 @@ import com.example.airlineService.service.AirlineService;
 import com.example.airlineService.service.converter.airlineconv.AirlineConverter;
 import com.example.airlineService.service.converter.airlineconv.AirlineEntityConverter;
 import com.example.airlineService.service.converter.airlineconv.AirlineRequestConverter;
+import com.example.airlineService.service.exception.AirlineAlreadyExistException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -33,7 +34,7 @@ public class AirlineServiceImpl implements AirlineService {
         Optional<AirlineEntity> optionalAirlineEntity = Optional.ofNullable(airlineRepository.findByAirlineName(request.getAirlineName()));
 
         if(optionalAirlineEntity.isPresent()){
-            throw new Exception("Airline already exist");
+            throw new AirlineAlreadyExistException(request.getAirlineName());
         }
         AirlineDto airlineDto=airlineRequestConverter.convert(request);
         AirlineEntity airlineEntity=airlineEntityConverter.convert(airlineDto);

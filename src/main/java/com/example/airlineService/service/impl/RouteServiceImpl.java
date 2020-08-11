@@ -11,6 +11,7 @@ import com.example.airlineService.service.RouteService;
 
 import com.example.airlineService.service.converter.routeconv.RouteEntityConverter;
 import com.example.airlineService.service.converter.routeconv.RouteRequestConverter;
+import com.example.airlineService.service.exception.AirlineNotFoundException;
 import org.springframework.stereotype.Service;
 
 
@@ -62,7 +63,7 @@ public class RouteServiceImpl implements RouteService {
     public List<RouteDto> findByAirlineId(Long id) throws Exception {
         Optional<AirlineEntity> optionalAirlineEntity= airlineRepository.findById(id);
         if (!optionalAirlineEntity.isPresent()){
-            throw new Exception("Related Airline Not Found");
+            throw new AirlineNotFoundException(id);
         }
         List<RouteEntity> routeEntities=routeRepository.findByAirlineEntity(optionalAirlineEntity.get());
         return routeEntities.stream().map(this::alter).collect(Collectors.toList());
